@@ -1,0 +1,70 @@
+<form #form="ngForm" (ngSubmit)="submit()">
+  <div class="form-group">
+    <label>Search for</label>
+    <select class="form-control" name="entity" ngModel #entity="ngModel">
+      <option></option>
+      <option value="section">Section</option>
+      <option value="thread">Thread</option>
+      <option value="user">User</option>
+    </select>
+  </div>
+  <div class="form-group" *ngIf="entity.value==='section'">
+    <label class="checkbox-inline"><input type="checkbox" name="sectionTitleCh" [(ngModel)]="sectionTitle">Title</label>
+    <label class="checkbox-inline"><input type="checkbox" name="sectionDescriptionCh" [(ngModel)]="sectionDescription">Description</label>
+    <label class="checkbox-inline"><input type="checkbox" name="sectionModeratorCh" [(ngModel)]="sectionModerator">Moderator</label>
+  </div>
+  <div class="form-group" *ngIf="entity.value==='thread'">
+    <label class="checkbox-inline"><input type="checkbox" name="threadTitleCh" [(ngModel)]="threadTitle">Title</label>
+    <label class="checkbox-inline"><input type="checkbox" name="threadContentCh" [(ngModel)]="threadContent">Content</label>
+    <label class="checkbox-inline"><input type="checkbox" name="threadAuthorCh" [(ngModel)]="threadAuthor">Author</label>
+    <label class="checkbox-inline"><input type="checkbox" name="threadSectionCh" [(ngModel)]="threadSection">Section</label>
+  </div>
+  <div class="form-group" *ngIf="entity.value==='user'">
+    <label>Username</label>
+    <input class="form-control transition" type="text" name="username" ngModel>
+  </div>
+  <!-- Section -->
+  <div class="form-group" *ngIf="entity.value==='section'">
+    <div class="form-group" *ngIf="sectionTitle">
+      <label>Section title:</label>
+      <input class="form-control transition" type="text" name="sectionTitle" ngModel>
+    </div>
+    <div class="form-group" *ngIf="sectionDescription">
+      <label>Section description:</label>
+      <input class="form-control transition" type="text" name="sectionDescription" ngModel>
+    </div>
+    <div class="form-group" *ngIf="sectionModerator">
+      <label>Section moderator:</label>
+      <input class="form-control transition" type="text" name="sectionModerator" ngModel>
+    </div>
+  </div>
+  <!-- Thread -->
+  <div class="form-group" *ngIf="entity.value==='thread'">
+    <div class="form-group" *ngIf="threadTitle">
+      <label>Thread title:</label>
+      <input class="form-control transition" type="text" name="threadTitle" ngModel>
+    </div>
+    <div class="form-group" *ngIf="threadContent">
+      <label>Thread content type:</label>
+      <select class="form-control transition" name="threadContent" ngModel>
+        <option value="IMAGE">Image</option>
+        <option value="TEXT">Text</option>
+        <option value="LINK">Link</option>
+      </select>
+    </div>
+    <div class="form-group" *ngIf="threadAuthor">
+      <label>Thread author:</label>
+      <input class="form-control transition" type="text" name="threadAuthor" ngModel>
+    </div>
+    <div class="form-group" *ngIf="threadSection">
+      <label>Thread section:</label>
+      <input class="form-control transition" name="threadSection" ngModel>
+    </div>
+  </div>
+  <button style="margin-bottom: 2em;" class="btn btn-primary btn-block">
+    <i class="glyphicon glyphicon-search"></i>
+    Search
+  </button>
+</form>
+
+<div class="alert alert-danger" *ngIf="error">No content</div>

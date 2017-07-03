@@ -1,0 +1,47 @@
+<h3>All users</h3>
+
+<div class="alert alert-danger alert-dismissable" *ngIf="error">
+  <a (click)="error=false" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+  There was an issue while saving user.
+
+</div>
+<div class="alert alert-success alert-dismissable" *ngIf="success">
+  <a (click)="success=false" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+  Successfully updated
+</div>
+<div class="table-responsive">
+  <table class="table">
+    <thead>
+    <tr>
+      <th>#</th>
+      <th>Firstname</th>
+      <th>Lastname</th>
+      <th>Username</th>
+      <th>Phone</th>
+      <th>Register date</th>
+      <th>Role</th>
+      <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let user of userList; let i = index;">
+      <td>{{i}}</td>
+      <td>{{user.name}}</td>
+      <td>{{user.surname}}</td>
+      <td>{{user.username}}</td>
+      <td>{{user.phoneNum}}</td>
+      <td>{{user.registerDate}}</td>
+      <td>
+        <select class="form-control" [ngModel]="user.role" (change)="user.role=role.value" #role="ngModel">
+          <option value="ADMIN">Admin</option>
+          <option value="MODERATOR">Moderator</option>
+          <option value="SUBSCRIBER">Subscriber</option>
+        </select>
+      </td>
+      <th>
+        <button class="btn btn-primary" (click)="updateUser(user)">Save</button>
+      </th>
+    </tr>
+    </tbody>
+  </table>
+</div>

@@ -1,0 +1,26 @@
+<h3>Send</h3>
+
+<div class="row">
+  <div class="alert alert-success" *ngIf="success">
+    Message sent!
+  </div>
+  <div class="alert alert-danger" *ngIf="error">
+    Message was not sent. Check recipient username.
+  </div>
+
+  <form #form="ngForm" (ngSubmit)="onSubmit()">
+    <div class="form-group-lg">
+      <label>To:</label>
+      <input class="form-control"  type="text" name="recipient" ngModel required="required" #recipient="ngModel" >
+
+    </div>
+
+    <div class="form-group-lg">
+      <label>Message:</label>
+      <textarea style="min-height: 50ex;" class="form-control" name="content" type="text" ngModel required="required" #content="ngModel" ></textarea>
+    </div>
+    <div style="margin-top: 1ex;" class="form-group-lg">
+    <input class="btn btn-primary btn-block" type="submit" value="Send" [disabled]="!form.valid">
+    </div>
+  </form>
+</div>

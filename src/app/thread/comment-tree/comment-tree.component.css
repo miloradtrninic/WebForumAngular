@@ -1,0 +1,11 @@
+.likes{
+  cursor: pointer;
+}
+a{
+  cursor: pointer;
+}
+.media {
+  border: 1px solid gainsboro;
+  border-radius: 3px;
+  padding: 0.5em;
+}

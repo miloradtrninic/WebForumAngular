@@ -1,0 +1,12 @@
+/* You can add global styles to this file, and also import other style files */
+.link{
+  cursor:pointer;
+}
+.boxborder {
+  border: 1px solid #464545;
+  border-radius: 4px;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05)
+}
+.row-margin{
+  padding: 1em;
+}

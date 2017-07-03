@@ -1,0 +1,46 @@
+<div class="media" *ngFor="let commentCurrent of subCommentsList">
+  <div class="media-left">
+    <img src="https://www.w3schools.com/bootstrap/img_avatar2.png" style="width:45px">
+  </div>
+  <div class="media-body">
+    <h4 class="media-heading">
+      {{commentCurrent.author}} <small><i>posted on {{commentCurrent.date}}</i></small>
+      <span class="pull-right" >
+            <span class="link" *ngIf="canEditComment(commentCurrent)" (click)="editModal.show(commentCurrent)" ><i class="glyphicon glyphicon-edit"></i>Edit</span>
+            <span class="link" *ngIf="canDeleteComment(commentCurrent)" (click)="deleteComment(commentCurrent)"><i class="glyphicon glyphicon-remove"></i>Delete</span>
+      </span>
+    </h4>
+    <hr />
+    <p>{{commentCurrent.text}}</p>
+    <div class="media-bottom">
+
+      <ul class="list-inline list-unstyled">
+        <li>
+          <span class="glyphicon glyphicon-thumbs-up likes" (click)="likeComment(commentCurrent)"></span>
+          <a (click)="likeComment(commentCurrent)"> Likes ({{commentCurrent.likes}}) </a>
+        </li>
+        <li>
+          <span style="cursor: pointer;"  class="glyphicon glyphicon-thumbs-down likes" (click)="dislikeComment(commentCurrent)"></span>
+          <a (click)="dislikeComment(commentCurrent)">Dislikes ({{commentCurrent.dislikes}}) </a>
+        </li>
+        <li>
+          <span class="glyphicon glyphicon glyphicon-bullhorn likes"></span>
+          <a (click)="onReply(commentCurrent)"> Reply </a>
+        </li>
+        <li>|</li>
+        <li>
+          <i class="glyphicon glyphicon-exclamation-sign" (click)="modal.show(comment.id+'', 'COMMENT', comment.author)"></i>
+          <a class="link" (click)="modal.show(comment.id+'', 'COMMENT', comment.author)"> Report</a>
+        </li>
+        <li>|</li>
+        <li *ngIf="commentCurrent.edited">
+          <i class="glyphicon glyphicon-scissors" title="Edited"></i>
+          Edited
+        </li>
+      </ul>
+    </div>
+    <app-comment-tree [allComments]="allComments" [comment]="commentCurrent"> </app-comment-tree>
+  </div>
+</div>
+<app-modal #modal></app-modal>
+<app-comment-edit #editModal></app-comment-edit>

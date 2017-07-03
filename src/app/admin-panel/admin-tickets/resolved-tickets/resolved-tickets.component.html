@@ -1,0 +1,32 @@
+<h3>My Tickets</h3>
+<div class="panel-group" id="accordion">
+  <div *ngFor="let ticket of tickets; let i = index">
+    <div
+      [ngClass]="{'panel': true, 'panel-default': ticket.response == null, 'panel-success': ticket.response=='DELETE', 'panel-warning': ticket.response=='WARN' , 'panel-danger': ticket.response=='DENY'}" >
+      <div class="panel panel-heading">
+        <span>
+           <i class="glyphicon glyphicon-tag link" (click)="readTicket(i)"></i> <strong><a class="link" (click)="readTicket(i)"> {{ticket.entity}}</a></strong>
+        </span>
+        <span class="pull-right">
+          <i class="glyphicon glyphicon-flag"></i> {{ticket.type}}
+          <i class="glyphicon glyphicon-calendar"></i> {{ticket.date}}
+          <i class="glyphicon glyphicon-user"></i> {{ticket.authorUsername}}
+        </span>
+      </div>
+      <div [ngClass]="{'panel-collapse': true, 'collapse': true, 'in': toRead.id==i}">
+        <div class="panel-body">
+          <label>Ticket message:</label>
+          <div class="well">
+            <p>{{ticket.content}}</p>
+          </div>
+          <label>Ticket response:</label>
+          <div class="well">
+            <p *ngIf="ticket.response=='DELETE'">Thank you for reporting. {{ticket.entity}} was deleted.</p>
+            <p *ngIf="ticket.response=='DENY'">Your ticket was refused.</p>
+            <p *ngIf="ticket.response=='WARN'">Thank you for reporting. Author was warned.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

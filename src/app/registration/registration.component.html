@@ -1,0 +1,53 @@
+<div class="row">
+  <h1>Register</h1>
+  <form #f="ngForm" (ngSubmit)="onSubmit()"  >
+    <div class="form-group">
+      <label for="username">Username</label>
+      <input type="text" id="username" name="username" class="form-control" ngModel required="required" minlength="4" maxlength="12" #username="ngModel">
+      <span class="help-block" *ngIf="!username.valid && username.touched">Username must be between 4 and 12 chars.</span>
+    </div>
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input type="password" id="password" name="password" class="form-control" ngModel required="required" #password="ngModel" validateEqual="password2" reverse="true" minlength="4" maxlength="12">
+      <span class="help-block" *ngIf="!password.valid && password.touched">Password must be between 4 and 12 chars.</span>
+    </div>
+    <div class="form-group">
+      <label for="password2">Password repeat</label>
+      <input type="password" id="password2" name="password2" class="form-control"  ngModel required="required"  #password2="ngModel" validateEqual="password">
+      <span class="help-block" *ngIf="!password2.valid && password2.touched">Password missmatch</span>
+    </div>
+
+    <div class="form-group">
+      <label for="name">First name</label>
+      <input type="text" id="name" name="name" class="form-control" ngModel required="required">
+    </div>
+    <div class="form-group">
+      <label for="lastname">Last name</label>
+      <input type="text" id="lastname" name="lastname" class="form-control" ngModel required="required">
+    </div>
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input type="text" id="email" name="email" class="form-control" ngModel required="required" email #email="ngModel">
+      <span class="help-block" *ngIf="!email.valid && email.touched">Enter valid email address</span>
+    </div>
+    <div class="form-group">
+      <label for="phone">Phone</label>
+      <input type="text" id="phone" name="phone" ngModel class="form-control" required="required" pattern="[0-9]{3}/[0-9]{3}-[0-9]{4}" #phone="ngModel">
+      <span class="help-block" *ngIf="!phone.valid && phone.touched">Enter cell phone in format: 062/555-3333</span>
+    </div>
+    <button
+      class="btn btn-block btn-lg btn-primary"
+      type="submit"
+      [disabled]="!f.valid">Register now!</button>
+
+  </form>
+</div>
+
+<div class="row media" *ngIf="errorSet">
+<div class="alert alert-danger">
+  <strong>Error</strong> {{errorMsg}}
+</div>
+</div>
+<div class="row media" *ngIf="userReg">
+  <div class="alert alert-success">You have successfully been registered {{userReg?.name}}. You will be redirected soon!</div>
+</div>

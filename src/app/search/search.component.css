@@ -1,0 +1,9 @@
+.transition{
+  width: 30%;
+  -webkit-transition: width 0.4s ease-in-out;
+  transition: width 0.4s ease-in-out;
+}
+.transition:focus{
+  width: 100%;
+}
+

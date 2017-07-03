@@ -1,0 +1,22 @@
+<h3>Modify threads</h3>
+
+<div class="panel-group" id="accordion">
+  <div class="panel panel-default" *ngFor="let thread of threadList; let i = index">
+    <div class="panel-heading">
+     <a class="link" [routerLink]="['/thread',thread.naturalID]">{{thread.title}}</a>
+      <ul class="list-inline list-unstyled pull-right">
+
+        <li class="glyphicon glyphicon-user"></li>
+        <li>{{thread.author}}</li>
+        <li style="cursor: pointer;" class="glyphicon glyphicon-edit" (click)="onopenEdit(i)"></li>
+        <li style="cursor: pointer;" class="glyphicon glyphicon-remove" (click)="onDelete(thread, i)" ></li>
+      </ul>
+    </div>
+    <div [ngClass]="{'panel-collapse': true, 'collapse': true, 'in': openEdit.id==i}">
+      <div class="panel-body">
+        <app-new-thread [toEdit]="thread"></app-new-thread>
+      </div>
+    </div>
+  </div>
+
+</div>

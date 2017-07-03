@@ -1,0 +1,41 @@
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar" appHamburger [navbarElement]=navbarList>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a routerLink="/" class="navbar-brand">WebForum</a>
+    </div>
+    <div class="collapse navbar-collapse" id="navbar" #navbarList>
+      <button routerLink="/search" class="btn btn-primary navbar-btn">
+        <i class="glyphicon glyphicon-search"></i>
+        Search
+      </button>
+      <ul class="nav navbar-nav">
+       <li><a class="link"  routerLink="/"> Home </a></li>
+      </ul>
+
+      <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown" appDropdown *ngIf="userService.isLoggedIn()">
+          <a class="dropdown-toggle" data-toggle="dropdown" role="button">{{userService.loggedUserToken.username}}<span class="caret"></span></a>
+
+          <ul class="dropdown-menu">
+            <li [routerLink]="['/adminPanel']" *ngIf="userService.loggedUserToken.role=='ADMIN' || userService.loggedUserToken.role=='MODERATOR'">
+              <a class="link">Admin panel</a>
+            </li>
+            <li><a class="link" [routerLink]="['/profile']"><i class="glyphicon glyphicon-user"></i> Overview</a></li>
+            <li [routerLink]="['/profile/messages']"><a class="link"><i class="glyphicon glyphicon-envelope"></i> Messages</a></li>
+            <li [routerLink]="['/profile/threads']"><a class="link"><i class="glyphicon glyphicon-briefcase"></i> My threads</a></li>
+            <li [routerLink]="['/profile/subsections']"><a class="link"><i class="glyphicon glyphicon-star"></i> Subscribed sections</a></li>
+            <li [routerLink]="['/profile/tickets']"><a class="link"><i class="glyphicon glyphicon-tags"></i> My tickets</a></li>
+          </ul>
+        </li>
+        <li *ngIf="!userService.isLoggedIn()"><a routerLink="/register" class="link"><span class="glyphicon glyphicon-user link"></span> Register</a></li>
+        <li *ngIf="!userService.isLoggedIn()"><a routerLink="/login" class="link"><span class="glyphicon glyphicon-log-in link"></span> Log in</a></li>
+        <li *ngIf="userService.isLoggedIn()"><a (click)="onLogout()" class="link"><span class="glyphicon glyphicon-log-out link"></span> Log out</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>

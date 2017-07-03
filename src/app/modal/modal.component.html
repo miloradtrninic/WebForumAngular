@@ -1,0 +1,27 @@
+<div (click)="onContainerClicked($event)" class="modal fade" tabindex="-1" [ngClass]="{'in': visibleAnimate}"
+     [ngStyle]="{'display': visible ? 'block' : 'none', 'opacity': visibleAnimate ? 1 : 0}">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <!--<ng-content select=".app-modal-header"></ng-content>-->
+        <h4>Report {{title}}</h4>
+      </div>
+      <div class="modal-body">
+        <!--<ng-content select=".app-modal-body"></ng-content>-->
+        <div class="alert alert-warning" *ngIf="!userService.isLoggedIn()">Please log in.</div>
+        <form #form="ngForm" *ngIf="userService.isLoggedIn()" (ngSubmit)="onSubmit()">
+          <div class="form-group">
+            <label>Explain report:</label>
+            <textarea class="form-control" ngModel name="content" required="required"></textarea>
+          </div>
+          <input style="margin-top: 2ex;" type="submit" class="btn btn-primary btn-block">
+        </form>
+        <div class="alert alert-success" *ngIf="success">Reported</div>
+        <div class="alert alert-danger" *ngIf="error">There was an issue with service. Try again later.</div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-danger" (click)="hide()">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

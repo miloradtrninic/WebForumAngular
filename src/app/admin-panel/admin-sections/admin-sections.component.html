@@ -1,0 +1,27 @@
+<h3>Modify sections</h3>
+<div class="panel-group" id="accordion">
+  <div class="panel panel-default" *ngFor="let section of sectionList; let i = index">
+    <div class="panel-heading">
+      <a class="link" [routerLink]="['/section',section.naturalID]">{{section.title}}</a>
+      <ul class="list-inline list-unstyled pull-right">
+
+        <li class="glyphicon glyphicon-user"></li>
+        <li>{{section.headModerator}}</li>
+        <li style="cursor: pointer;" class="glyphicon glyphicon-list" (click)="onOpenPreview(i)"></li>
+        <li style="cursor: pointer;" class="glyphicon glyphicon-remove" (click)="onDelete(section, i)" ></li>
+      </ul>
+    </div>
+    <div [ngClass]="{'panel-collapse': true, 'collapse': true, 'in': openEdit.id==i}">
+      <div class="panel-body">
+        <div class="media">
+          <div class="media-left">
+            <img [src]="section.imagePath" class="media-object" style="width:60px">
+          </div>
+          <div class="media-body">
+            <p><strong>Description</strong> {{section.description}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

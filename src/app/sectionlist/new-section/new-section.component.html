@@ -1,0 +1,33 @@
+<div class="row">
+  <h1>Submit section</h1>
+  <form #form="ngForm" (ngSubmit)="submit()">
+    <div class="form-group">
+      <label for="title">Title</label>
+      <input type="text" id="title" name="title" class="form-control" ngModel required="required" #username="ngModel">
+
+    </div>
+    <div class="form-group">
+      <label for="description">Description</label>
+      <textarea id="description" name="description" class="form-control" ngModel required="required" ></textarea>
+    </div>
+    <div class="form-group">
+      <label for="rules">Rules separated by [rule]</label>
+      <textarea id="rules" name="rules" class="form-control" ngModel required="required"></textarea>
+    </div>
+    <div class="form-group">
+      <label for="rules">Icon</label>
+      <input id="image" name="image" (change)="fileChange($event)" type="file" class="form-control" accept=".jpg,.png,.gif" ngModel placeholder="Choose icon" >
+    </div>
+    <button
+      class="btn btn-block btn-lg btn-primary"
+      type="submit"
+      [disabled]="!form.valid">Create section!</button>
+
+  </form>
+</div>
+
+<div class="row media" *ngIf="errorSet">
+  <div class="alert alert-danger">
+    <strong>Error</strong> Something went wrong
+  </div>
+</div>

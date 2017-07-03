@@ -1,0 +1,34 @@
+<div class="row">
+  <form (ngSubmit)="submit()" #form="ngForm">
+    <div class="form-group">
+      <label>Title: </label>
+      <input class="form-control" name="title" [ngModel]="toEdit?.title">
+    </div>
+    <div class="form-group">
+      <label>Type: </label>
+      <select class="form-control" name="type" [ngModel]="defaultType" #select="ngModel">
+        <option value="IMAGE">Image</option>
+        <option value="TEXT">Text</option>
+        <option value="LINK">Link</option>
+      </select>
+    </div>
+    <div class="form-group form-group-lg" *ngIf="select.value==='LINK'">
+      <label>Link: </label>
+      <input class="form-control" name="LINK" type="text" [ngModel]="toEdit?.content">
+    </div>
+    <div class="form-group form-group-lg" *ngIf="select.value==='TEXT'">
+      <label>Text: </label>
+      <textarea style="height: 10em;" class="form-control" name="TEXT" type="text" [ngModel]="toEdit?.content"></textarea>
+    </div>
+    <div class="input-group input-group-lg" *ngIf="select.value==='IMAGE'">
+      <input type="file" (change)="fileChange($event)" placeholder="Upload file" accept=".jpg,.gif,.png">
+
+    </div>
+    <div style="margin-top: 1em;" class="form-group">
+      <button type="submit" *ngIf="toEdit == null" class="btn btn-block btn-lg btn-primary">Create thread</button>
+      <button type="submit" *ngIf="toEdit != null" class="btn btn-block btn-lg btn-primary">Update</button>
+    </div>
+  </form>
+
+
+</div>

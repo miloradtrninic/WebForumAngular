@@ -1,0 +1,108 @@
+<div class="col-xs-12 col-md-8">
+<h1>{{thread?.title}}</h1>
+<div class="alert alert-warning alert-dismissable" *ngIf="loginAlert">
+  <a (click)="closeAler()" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+  Please log in
+</div>
+<div class="well">
+  <div class="media">
+    <div class="media-body">
+      <h4 class="media-heading">{{thread?.title}}</h4>
+      <span class="pull-right">
+        <span class="glyphicon glyphicon-user"></span> {{thread?.author}}
+      </span>
+      <p *ngIf="thread?.type==='TEXT'">{{thread?.content}}</p>
+      <p *ngIf="thread?.type==='LINK'"><a [href]="thread?.content" target="_blank">{{thread?.content}}</a></p>
+      <p *ngIf="thread?.type==='IMAGE'">
+        <img [src]="'http://localhost:8080/WebForum/'+thread?.content" class="media-object img-responsive">
+      </p>
+      <ul class="list-inline list-unstyled">
+        <li><span><i class="glyphicon glyphicon-calendar"></i> {{thread?.created}} </span></li>
+        <li>|</li>
+        <span><i class="glyphicon glyphicon-comment"></i> {{commentList?.length}}</span>
+        <li>|</li>
+        <li>
+          <span class="glyphicon glyphicon-thumbs-up likes" (click)="likeThread()"></span>
+          <a (click)="likeThread()"> Likes ({{thread?.likes}}) </a>
+        </li>
+        <li>
+          <span class="glyphicon glyphicon-thumbs-down likes" (click)="dislikeThread()"></span>
+          <a (click)="dislikeThread()"> Dislikes ({{thread?.dislikes}}) </a>
+        </li>
+        <li>|</li>
+        <li>
+          <span class="glyphicon glyphicon glyphicon-bullhorn likes"></span>
+          <a (click)="onReply()"> Comment </a>
+        </li>
+        <li>|</li>
+        <li>
+          <i class="glyphicon glyphicon-exclamation-sign" (click)="modal.show(thread.naturalID+'', 'THREAD', thread.author)"></i>
+          <a class="link" (click)="modal.show(thread.naturalID+'', 'THREAD', thread.author)"> Report</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+
+<ul class="media-list">
+    <div *ngFor="let comment of commentList; let i of index">
+
+    <li class="media" *ngIf="comment.parent===null">
+      <div class="media-left">
+        <img src="https://www.w3schools.com/bootstrap/img_avatar2.png" style="width:45px">
+      </div>
+      <div class="media-body" >
+        <h4 class="media-heading">{{comment?.author}}<small><i> posted on {{comment?.date}}</i></small>
+          <span class="pull-right" >
+            <span class="link" *ngIf="canEditComment(comment)" (click)="editModal.show(comment)"><i class="glyphicon glyphicon-edit"></i>Edit</span>
+            <span class="link" *ngIf="canDeleteComment(comment)" (click)="deleteComment(comment)"><i class="glyphicon glyphicon-remove"></i>Delete</span>
+      </span>
+        </h4>
+        <hr />
+        <p>{{comment.text}}</p>
+        <div class="media-bottom">
+          <ul class="list-inline list-unstyled">
+            <li>
+              <span class="glyphicon glyphicon-thumbs-up likes" (click)="likeComment(comment)"></span>
+              <a (click)="likeComment(comment)"> Likes ({{comment.likes}}) </a>
+            </li>
+            <li>
+              <span class="glyphicon glyphicon-thumbs-down likes" (click)="dislikeComment(comment)"></span>
+              <a (click)="dislikeComment(comment)">Dislikes ({{comment?.dislikes}}) </a>
+            </li>
+            <li>|</li>
+            <li>
+              <span class="glyphicon glyphicon glyphicon-bullhorn likes"></span>
+              <a (click)="onReply(comment)"> Reply </a>
+            </li>
+            <li>|</li>
+            <li>
+              <i class="glyphicon glyphicon-exclamation-sign" (click)="modal.show(comment.id+'', 'COMMENT', comment.author)"></i>
+              <a class="link" (click)="modal.show(comment.id+'', 'COMMENT', comment.author)"> Report</a>
+            </li>
+            <li *ngIf="comment.edited">
+              <i class="glyphicon glyphicon-scissors" title="Edited"></i>
+              Edited
+            </li>
+          </ul>
+        </div>
+        <app-comment-tree (loginAlert)="loginAlert=$event.returnValue" [allComments]="commentList" [comment]="comment"> </app-comment-tree>
+      </div>
+    </li>
+    </div>
+</ul>
+<div class="well clearfix" *ngIf="canComment()" id="commentBox">
+    <div class="help-block" *ngIf="commentService.commentParent">Reply to: {{commentService.commentParent.author}}</div>
+    <form (ngSubmit)="sendComment()" #f="ngForm">
+      <textarea class="form-control" name="text" id="text" ngModel placeholder="Type your comment..." ></textarea>
+      <button class="btn btn-primary pull-right">Comment</button>
+    </form>
+</div>
+</div>
+
+<app-modal #modal></app-modal>
+<app-comment-edit #editModal></app-comment-edit>
+<div class="col-xs-12 col-md-4">
+  <app-suggests></app-suggests>
+</div>

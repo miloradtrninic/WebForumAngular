@@ -1,0 +1,20 @@
+<div class="row">
+  <h1>Sign in</h1>
+  <form #f="ngForm" (ngSubmit)="login()">
+    <div class="form-group">
+      <label for="username">Username</label>
+      <input type="text" id="username" name="username" class="form-control" ngModel required="required" (change)="errorSet=false" #username="ngModel">
+    </div>
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input type="password" id="password" name="password" class="form-control" ngModel required="required" (change)="errorSet=false" #password="ngModel">
+    </div>
+    <button class="btn btn-block btn-lg btn-primary" type="submit" [disabled]="!f.valid">Log in!</button>
+  </form>
+</div>
+
+<div class="row media" *ngIf="errorSet">
+  <div class="alert alert-danger">
+    <strong>Error</strong> Wrong username or password
+  </div>
+</div>

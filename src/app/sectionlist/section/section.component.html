@@ -1,0 +1,56 @@
+<div class="col-xs-12 col-md-8">
+<div class="row row-margin" *ngIf="section!=null">
+  <h1 class="pull-left">{{section?.title}}</h1>
+  <div class="pull-right" style="margin-top: 3ex;">
+  <button class="btn btn-primary" (click)="onCreate()" >
+    <i class="glyphicon glyphicon-plus gi-1x "></i> Create new thread
+  </button>
+  <button class="btn btn-success" *ngIf="subscribeAllowed" (click)="subscribe()">
+    <i class="glyphicon glyphicon-star-empty link gi-1x" ></i> Subscribe
+  </button>
+  <button class="btn btn-success" *ngIf="!subscribeAllowed" (click)="unsubscribe()">
+    <i class="glyphicon glyphicon-star link gi-1x"  ></i> Unsubscribe
+  </button>
+  </div>
+</div>
+
+<div class="table-responsive">
+  <table class="table">
+    <thead>
+    <tr>
+      <th><i class="glyphicon glyphicon-font"></i> Title</th>
+      <th><i class="glyphicon glyphicon-user"></i> Author</th>
+      <th><i class="glyphicon glyphicon-calendar"></i> Created</th>
+      <th>Content</th>
+      <th><i class="glyphicon glyphicon-thumbs-up"></i> Likes / <i class="glyphicon glyphicon-thumbs-down"></i> Dislikes</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let thread of threadList; let i of index">
+      <td><a [routerLink]="['/thread',thread.naturalID]">{{thread.title}}</a></td>
+      <td>{{thread.author}}</td>
+      <td>{{thread.created}}</td>
+      <td>{{thread.type}}</td>
+      <td>{{thread.likes}} / {{thread.dislikes}}</td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+<div class="panel-group" *ngIf="section!=null">
+  <div class="panel panel-danger">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a appHamburger [navbarElement]=toCollapse>Section rules <small>please read</small></a>
+      </h4>
+    </div>
+    <div #toCollapse class="panel-collapse collapse">
+      <ul class="list-group">
+        <li class="list-group-item" *ngFor="let rule of section?.rules">{{rule}}</li>
+      </ul>
+    </div>
+  </div>
+</div>
+</div>
+<div class="col-xs-12 col-md-4">
+  <app-suggests></app-suggests>
+</div>

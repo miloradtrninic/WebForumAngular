@@ -1,0 +1,21 @@
+<div class="row">
+  <div class="col-xs-12">
+    <div class="panel with-nav-tabs panel-default">
+      <div class="panel-heading">
+        <ul class="nav nav-tabs" style="margin-top: 1em;">
+          <li [ngClass]="{'active' : activeChild==='profile'}"><a [routerLink]="['/profile']">Overview</a></li>
+          <li [ngClass]="{'active' : activeChild==='threads'}"><a routerLink="threads">My threads</a></li>
+          <li [ngClass]="{'active' : activeChild=='subsections'}"><a routerLink="subsections">Subscribed sections</a></li>
+          <li [ngClass]="{'active' : activeChild=='messages'}"><a routerLink="messages">My messages</a></li>
+          <li [ngClass]="{'active' : activeChild=='tickets'}"><a routerLink="tickets">My tickets</a></li>
+        </ul>
+      </div>
+      <div class="panel-body">
+        <div class="tab-content">
+          <router-outlet></router-outlet>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

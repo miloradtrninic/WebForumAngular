@@ -1,0 +1,37 @@
+<h3>My Tickets</h3>
+<div class="panel-group" id="accordion">
+  <div *ngFor="let ticket of tickets; let i = index">
+    <div
+      [ngClass]="{'panel': true, 'panel-default': ticket.response == null, 'panel-success': ticket.response=='DELETE', 'panel-warning': ticket.response=='WARN' , 'panel-danger': ticket.response=='DENY'}" >
+      <div class="panel panel-heading">
+        <span>
+           <i class="glyphicon glyphicon-tag link" (click)="readTicket(i)"></i> <strong><a class="link" (click)="readTicket(i)"> {{ticket.entity}}</a></strong>
+        </span>
+        <span class="pull-right">
+          <i class="glyphicon glyphicon-flag"></i> {{ticket.type}}
+          <i class="glyphicon glyphicon-calendar"></i> {{ticket.date}}
+          <i class="glyphicon glyphicon-user"></i> {{ticket.authorUsername}}
+        </span>
+      </div>
+      <div [ngClass]="{'panel-collapse': true, 'collapse': true, 'in': toRead.id==i}" *ngIf="toRead.id==i">
+        <div class="panel-body">
+          <label>Ticket message:</label>
+          <div class="well">
+            <p>{{ticket.content}}</p>
+          </div>
+          <form #form="ngForm" (ngSubmit)="onSubmit(ticket, i)">
+            <div class="form-group">
+              <label>Response</label>
+              <select class="form-control" required="required" name="response" ngModel #response="ngModel" >
+                <option value="WARN">Warn user</option>
+                <option value="DENY">Deny ticket</option>
+                <option value="DELETE">Delete {{ticket.entity}}</option>
+              </select>
+              <input style="margin-top: 10px;" type="submit" class="btn btn-primary btn-block" [disabled]="!form.valid">
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
